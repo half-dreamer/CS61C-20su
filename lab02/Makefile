@@ -31,6 +31,9 @@ $(BIT_OPS_PROG): $(BIT_OPS_OBJS)
 $(LFSR_PROG): $(LFSR_OBJS)
 	$(CC) $(CFLAGS) -g -o $(LFSR_PROG) $(LFSR_OBJS) $(LDFLAGS)
 
+$(VECTOR_PROG): $(VECTOR_OBJS)
+	$(CC) $(CFLAGS) -g -o $(VECTOR_PROG) $(VECTOR_OBJS) $(LDFLAGS)
+
 lfsr.c: lfsr.h
 test_lfsr.c: lfsr.h
 
@@ -48,3 +51,10 @@ clean:
 
 vector.c: vector.h
 vector_test.c: vector.h
+
+list : test_list.o list.o
+	gcc -g -o test_list test_list.o list.o
+list.o : list.c list.h
+	gcc -c list.c 
+test_list.o : test_list.c list.h
+	gcc -c test_list.c
