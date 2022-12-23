@@ -46,6 +46,8 @@ main:
     ecall
 
 map:
+    # a0 is the address of the first node , a1 is the address of the function
+    # we can only use s0 and s1 
     addi sp, sp, -12
     sw ra, 0(sp)
     sw s1, 4(sp)
@@ -62,20 +64,33 @@ map:
     # - 4 for the size of the array
     # - 4 more for the pointer to the next node
 mapLoop:
-    add t1, s0, x0      # load the address of the array of current node into t1
+    lw t1, 0(s0)      # load the address of the array of current node into t1
     lw t2, 4(s0)        # load the size of the node's array into t2
 
-    add t1, t1, t0      # offset the array address by the count
+    li  t3, 4
+    mul t4, t0, t3      # error fix : multiply offset by 4
+    add t1, t1, t4      # offset the array address by the count
     lw a0, 0(t1)        # load the value at that address into a0
 
+    addi sp, sp, -12
+    sw  t0, 0(sp)
+    sw  t1, 4(sp)
+    sw  t2, 8(sp)
+    # a bug occur here : before calling function, we need to store temp registers in caller!
+    # always remember to obey the caller-callee convention! 
     jalr s1             # call the function on that value.
+
+    lw  t0, 0(sp)
+    lw  t1, 4(sp)
+    lw  t2, 8(sp)
+    addi sp, sp, 12
 
     sw a0, 0(t1)        # store the returned value back into the array
     addi t0, t0, 1      # increment the count
     bne t0, t2, mapLoop # repeat if we haven't reached the array size yet
 
-    la a0, 8(s0)        # load the address of the next node into a0
-    lw a1, 0(s1)        # put the address of the function back into a1 to prepare for the recursion
+    lw a0, 8(s0)         # load the address of the next node into a0
+    add a1, s1, x0        # put the address of the function back into a1 to prepare for the recursion
 
     jal  map            # recurse
 done:
@@ -94,23 +109,24 @@ create_default_list:
     addi sp, sp, -4
     sw ra, 0(sp)
     li s0, 0  # pointer to the last node we handled
-    li s1, 0  # number of nodes handled
+    li s1, 0  # number of nodes handled (i.e. the 'i' in the loop)
     li s2, 5  # size
-    la s3, arrays
+    la s3, arrays # s3 is the address of array
 loop: #do...
     li a0, 12
-    jal malloc      # get memory for the next node
-    mv s4, a0
+    jal malloc      # get memory for the next node (node has three words(attributes))
+    mv s4, a0       # s4 is the address of newly created node
     li a0, 20
     jal  malloc     # get memory for this array
 
-    sw a0, 0(s4)    # node->arr = malloc
-    lw a0, 0(s4)
+    sw a0, 0(s4)    # node->arr = malloc    first attribute is the pointer of newly created array
+
+    lw a0, 0(s4)    # pass in argument is a0(newly created but empty array's address), a1(the address of real existing array(words))
     mv a1, s3
     jal fillArray   # copy ints over to node->arr
 
-    sw s2, 4(s4)    # node->size = size (4)
-    sw  s0, 8(s4)   # node-> next = previously created node
+    sw s2, 4(s4)    # node->size = size   (second attribute)
+    sw  s0, 8(s4)   # node->next = previously created node    aka. the list is created from right to left   
 
     add s0, x0, s4  # last = node
     addi s1, s1, 1  # i++
@@ -122,6 +138,7 @@ loop: #do...
     addi sp, sp, 4
     jr ra
 
+# kind of stupid , just manually copy every element to newly array
 fillArray: lw t0, 0(a1) #t0 gets array element
     sw t0, 0(a0) #node->arr gets array element
     lw t0, 4(a1)
