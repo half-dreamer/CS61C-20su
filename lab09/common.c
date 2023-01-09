@@ -111,18 +111,26 @@ long long int sum_simd_unrolled(unsigned int vals[NUM_ELEMS]) {
 		}
 		// can't add like result += sum_vector[0] + ..., because vector can't be operated like an array
 		// so we create an array to store the four value of sum_vector and use that array to add values
+
+		/* You'll need 1 or maybe 2 tail cases here. */
+		// we still need some parallism optimisization
+		for (unsigned int i = NUM_ELEMS / 16 * 16; i < NUM_ELEMS / 4 * 4; i += 4) {
+			cur_vector = _mm_loadu_si128((__m128i *)(vals + i));
+			mask_vector = _mm_cmpgt_epi32(cur_vector, _127);
+			cur_vector = _mm_and_si128(cur_vector, mask_vector);
+			sum_vector = _mm_add_epi32(sum_vector, cur_vector);	
+		}
 		_mm_storeu_si128((__m128i *)sum, sum_vector);
 
-		/* You'll need a tail case. */
-		for (unsigned int i = NUM_ELEMS / 16 * 16; i < NUM_ELEMS; i++) {
+		for (int i = NUM_ELEMS / 4 * 4; i < NUM_ELEMS; i++) {
 			if (vals[i] >= 128) {
 				result += vals[i];
 			}
 		}
+
 		for (int i = 0; i < 4; i++	) {
 			result += sum[i];
 		}
-		/* You'll need 1 or maybe 2 tail cases here. */
 
 	}
 	clock_t end = clock();
