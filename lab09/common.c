@@ -59,14 +59,12 @@ long long int sum_simd(unsigned int vals[NUM_ELEMS]) {
 			__m128i cur_vector = _mm_loadu_si128((__m128i *)(vals + i));
 			__m128i mask_vector = _mm_cmpgt_epi32(cur_vector, _127);
 			cur_vector = _mm_and_si128(cur_vector, mask_vector);
-			sum_vector += _mm_add_epi32(sum_vector, cur_vector);	
+			sum_vector = _mm_add_epi32(sum_vector, cur_vector);	
 		}
 		// can't add like result += sum_vector[0] + ..., because vector can't be operated like an array
 		// so we create an array to store the four value of sum_vector and use that array to add values
 		_mm_storeu_si128((__m128i *)sum, sum_vector); 
-		for (unsigned int i = 0; i < 4; i++) {
-			result += sum[i];
-		}
+		result += sum[0] + sum[1] + sum[2] + sum[3];
 		/* You'll need a tail case. */
 		for (unsigned int i = NUM_ELEMS / 4 * 4; i < NUM_ELEMS;	i++) {
 			if (vals[i] >= 128) {
@@ -86,7 +84,44 @@ long long int sum_simd_unrolled(unsigned int vals[NUM_ELEMS]) {
 	for(unsigned int w = 0; w < OUTER_ITERATIONS; w++) {
 		/* COPY AND PASTE YOUR sum_simd() HERE */
 		/* MODIFY IT BY UNROLLING IT */
+		unsigned int sum[4];
+		__m128i sum_vector = _mm_setzero_si128();
+		__m128i cur_vector;
+		__m128i mask_vector;
+		for (unsigned int i = 0; i + 16 <= NUM_ELEMS ; i += 16) {
+			cur_vector = _mm_loadu_si128((__m128i *)(vals + i + 0));
+			mask_vector = _mm_cmpgt_epi32(cur_vector, _127);
+			cur_vector = _mm_and_si128(cur_vector, mask_vector);
+			sum_vector = _mm_add_epi32(sum_vector, cur_vector);	
 
+			cur_vector = _mm_loadu_si128((__m128i *)(vals + i + 4));
+			mask_vector = _mm_cmpgt_epi32(cur_vector, _127);
+			cur_vector = _mm_and_si128(cur_vector, mask_vector);
+			sum_vector = _mm_add_epi32(sum_vector, cur_vector);	
+			
+			cur_vector = _mm_loadu_si128((__m128i *)(vals + i + 8));
+			mask_vector = _mm_cmpgt_epi32(cur_vector, _127);
+			cur_vector = _mm_and_si128(cur_vector, mask_vector);
+			sum_vector = _mm_add_epi32(sum_vector, cur_vector);	
+
+			cur_vector = _mm_loadu_si128((__m128i *)(vals + i + 12));
+			mask_vector = _mm_cmpgt_epi32(cur_vector, _127);
+			cur_vector = _mm_and_si128(cur_vector, mask_vector);
+			sum_vector = _mm_add_epi32(sum_vector, cur_vector);	
+		}
+		// can't add like result += sum_vector[0] + ..., because vector can't be operated like an array
+		// so we create an array to store the four value of sum_vector and use that array to add values
+		_mm_storeu_si128((__m128i *)sum, sum_vector);
+
+		/* You'll need a tail case. */
+		for (unsigned int i = NUM_ELEMS / 16 * 16; i < NUM_ELEMS; i++) {
+			if (vals[i] >= 128) {
+				result += vals[i];
+			}
+		}
+		for (int i = 0; i < 4; i++	) {
+			result += sum[i];
+		}
 		/* You'll need 1 or maybe 2 tail cases here. */
 
 	}
