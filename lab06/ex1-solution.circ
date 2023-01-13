@@ -265,6 +265,10 @@ end TCL_Generic;
     <comp lib="0" loc="(170,210)" name="Pin">
       <a name="label" val="CLK"/>
     </comp>
+    <comp lib="8" loc="(336,302)" name="Text">
+      <a name="text" val="Critical path: 105ns"/>
+      <a name="font" val="SansSerif plain 12"/>
+    </comp>
   </circuit>
   <circuit name="pipelined">
     <a name="circuit" val="pipelined"/>
@@ -273,27 +277,23 @@ end TCL_Generic;
     <a name="clabelfont" val="SansSerif bold 16"/>
     <a name="circuitnamedbox" val="true"/>
     <a name="circuitvhdlpath" val=""/>
-    <wire from="(240,120)" to="(270,120)"/>
-    <wire from="(540,130)" to="(560,130)"/>
-    <wire from="(510,130)" to="(540,130)"/>
-    <wire from="(170,210)" to="(230,210)"/>
-    <wire from="(360,250)" to="(540,250)"/>
-    <wire from="(360,140)" to="(360,250)"/>
-    <wire from="(230,210)" to="(440,210)"/>
-    <wire from="(180,110)" to="(200,110)"/>
-    <wire from="(180,130)" to="(200,130)"/>
-    <wire from="(440,170)" to="(440,210)"/>
-    <wire from="(440,170)" to="(450,170)"/>
-    <wire from="(540,130)" to="(540,250)"/>
-    <wire from="(230,160)" to="(230,210)"/>
-    <wire from="(360,140)" to="(370,140)"/>
-    <wire from="(170,90)" to="(180,90)"/>
-    <wire from="(170,150)" to="(180,150)"/>
-    <wire from="(180,90)" to="(180,110)"/>
-    <wire from="(180,130)" to="(180,150)"/>
-    <wire from="(230,160)" to="(270,160)"/>
-    <wire from="(330,120)" to="(370,120)"/>
-    <wire from="(410,130)" to="(450,130)"/>
+    <wire from="(430,120)" to="(430,220)"/>
+    <wire from="(110,270)" to="(140,270)"/>
+    <wire from="(500,110)" to="(560,110)"/>
+    <wire from="(670,110)" to="(670,220)"/>
+    <wire from="(430,120)" to="(460,120)"/>
+    <wire from="(670,110)" to="(690,110)"/>
+    <wire from="(620,110)" to="(670,110)"/>
+    <wire from="(310,140)" to="(330,140)"/>
+    <wire from="(190,110)" to="(190,150)"/>
+    <wire from="(280,100)" to="(330,100)"/>
+    <wire from="(190,110)" to="(240,110)"/>
+    <wire from="(170,150)" to="(190,150)"/>
+    <wire from="(330,140)" to="(340,140)"/>
+    <wire from="(430,220)" to="(670,220)"/>
+    <wire from="(170,90)" to="(240,90)"/>
+    <wire from="(390,100)" to="(460,100)"/>
+    <wire from="(520,150)" to="(560,150)"/>
     <comp lib="0" loc="(170,90)" name="Pin">
       <a name="width" val="8"/>
       <a name="label" val="in1"/>
@@ -302,19 +302,34 @@ end TCL_Generic;
       <a name="width" val="8"/>
       <a name="label" val="in2"/>
     </comp>
-    <comp lib="0" loc="(170,210)" name="Pin">
+    <comp lib="0" loc="(110,270)" name="Pin">
       <a name="label" val="CLK"/>
     </comp>
-    <comp lib="0" loc="(560,130)" name="Pin">
+    <comp lib="0" loc="(140,270)" name="Tunnel">
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="3" loc="(280,100)" name="Multiplier"/>
+    <comp lib="4" loc="(330,70)" name="Register"/>
+    <comp lib="0" loc="(310,140)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="4" loc="(560,80)" name="Register"/>
+    <comp lib="3" loc="(500,110)" name="Adder"/>
+    <comp lib="0" loc="(690,110)" name="Pin">
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
       <a name="width" val="8"/>
       <a name="label" val="out1"/>
       <a name="labelloc" val="east"/>
     </comp>
-    <comp lib="3" loc="(240,120)" name="Multiplier"/>
-    <comp lib="4" loc="(450,100)" name="Register"/>
-    <comp lib="4" loc="(270,90)" name="Register"/>
-    <comp lib="3" loc="(410,130)" name="Adder"/>
+    <comp lib="0" loc="(520,150)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="8" loc="(287,306)" name="Text">
+      <a name="text" val="clock rate: 14.29MHz"/>
+      <a name="font" val="SansSerif plain 12"/>
+    </comp>
   </circuit>
 </project>

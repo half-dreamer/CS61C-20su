@@ -21,10 +21,10 @@ array:	.word	2048		# max array size specified in BYTES (DO NOT CHANGE)
 .text
 ##################################################################################################
 # You MAY change the code below this section
-main:	li	a0, 256		# array size in BYTES (power of 2 < array size)
-	li	a1, 2		# step size  (power of 2 > 0)
+main:	li	a0, 128		# array size in BYTES (power of 2 < array size)
+	li	a1, 1		# step size  (power of 2 > 0)
 	li	a2, 1		# rep count  (int > 0)
-	li	a3, 1		# 0 - option 0, 1 - option 1
+	li	a3, 0		# 0 - option 0, 1 - option 1
 # You MAY change the code above this section
 ##################################################################################################
 

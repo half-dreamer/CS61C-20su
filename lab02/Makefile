@@ -40,7 +40,7 @@ test_lfsr.c: lfsr.h
 bit_ops.c: bit_ops.h
 test_bit_ops.c: bit_ops.h
 
-.c.o:
+.c.o: 
 	$(CC) -c $(CFLAGS) $<
 
 vector-memcheck: $(VECTOR_PROG)
