@@ -13,7 +13,7 @@ CS61C(*Great Ideas in Computer Architecture*)是UC Berkeley开设的**计算机�
 1. 学习顺序：就我而言，是lecture->lab/hw->project，reading和discussion就没看了（~~英语太烂，文字读起来比较慢🤡~~)，但其实仅我做的三个部分就已经挺多了
 2. 版本选择：我选择的是20su，授课的不是教授，是三个TA；summer课程只有26个lecture，但要学的东西并未缩减；但还是建议去上20fa，授课的是教授，课程也是完整的40个lecture，我在后期上了几节20fa的lecture，总的感觉是教授的授课水平以及视频的精良程度比TA的好🤔
 3. 课程前面四个lecture快速过了一下C语言，然后就开始上手相应的lab和proj，但其实个人认为这个不是很合适，对C语言初学者不是很友好，包括学过C小C大的本菜狗🤡建议先上个Coursera上Duke的C programming spec，然后再跳过前面4个lecture，直接上手proj。关于C语言方面，可以看看我之前写的[C++自学总结](https://www.cc98.org/topic/5550820) 
-4. 之后的RISC-V part，多多查阅[RISC-V GreenCard](https://inst.eecs.berkeley.edu/~cs61c/sp21/resources-pdfs/riscvcard.pdf) 以及学会在UCB提供的环境[venus](https://venus.cs61c.org/) 中debug，venus的功能很强大，有相关的文档教怎么使用，~~不要嫌多就草草略过，否则会和我一样debug很痛苦🤡~~ 有关RISC-V的proj2，虽然说听起来很高端，“用 RISC-V 汇编编写一个神经网络，用来识别 MNIST 手写数字 ”，但其实只是写几个矩阵运算，不用畏惧
+4. 之后的RISC-V part，多多查阅[RISC-V GreenCard](https://inst.eecs.berkeley.edu/~cs61c/sp21/resources-pdfs/riscvcard.pdf) 以及学会在UCB提供的环境[venus](https://venus.cs61c.org/) 中debug，venus的功能很强大，有相关的文档教怎么使用，不要嫌多就草草略过，~~否则会和我一样debug很痛苦~~🤡有关RISC-V的proj2，虽然说听起来很高端，“用 RISC-V 汇编编写一个神经网络，用来识别 MNIST 手写数字 ”，但其实只是写几个矩阵运算，不用畏惧
 5. 中后段的CPU part，要好好理解各组成的功能以及pipeline，proj3手搓CPU很酸爽；虽然说EE里数电和计组会有重合，但只能说关系不大，有关门电路的lecture不建议跳过
 6. 后段的lecture不只局限于计组，包括SIMD（~~想起讲这个讲得稀碎的超算短学期~~）、线程级并行、虚存等等，有点为OS学习铺垫的意思
 7. 这门课没有autograder，大部分都有本地测试，但有些是没有开放的（比如proj4，还挺可惜的😥），貌似可以申个UCB的summer session嫖个UCB的学生账户问TA要test，笔者没试过
