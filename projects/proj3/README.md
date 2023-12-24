@@ -8,6 +8,11 @@
 
 ### the design
 
+#### support instructions
+
+![1703389411691](assets/1703389411691.png)
+
+
 #### cpu.circ
 
 ![1697197719672](assets/1697197719672.png)
